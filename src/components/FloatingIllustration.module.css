@@ -1,0 +1,43 @@
+.illustration {
+  aspect-ratio: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Motion belongs to the child so Tailwind rotation/positioning stays intact. */
+.motion {
+  display: block;
+  width: 100%;
+  height: 100%;
+  animation-duration: var(--float-duration, 6s);
+  animation-delay: var(--float-delay, 0s);
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  animation-play-state: paused;
+}
+.motion picture, .motion img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.motion img { object-fit: contain; }
+.illustration[data-active='true'] .motion { animation-play-state: running; }
+.illustration[data-animation='bob'] .motion { animation-name: bob; }
+.illustration[data-animation='drift'] .motion { animation-name: drift; }
+.illustration[data-animation='sway'] .motion { animation-name: sway; }
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(-2deg); }
+  50% { transform: translate(4px, -6px) rotate(2deg); }
+}
+@keyframes sway {
+  0%, 100% { transform: rotate(-3deg); }
+  50% { transform: rotate(3deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .motion { animation: none; transform: none; }
+}
